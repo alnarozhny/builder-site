@@ -1,0 +1,38 @@
+  =>  Template Name    : Arkitektur - Architecture HTML Template
+
+  =>  Template Link    : https://htmlcodex.com/architecture-html-template
+
+  =>  Template License : https://htmlcodex.com/license (or read the LICENSE.txt file)
+
+  =>  Template Author  : HTML Codex
+
+  =>  Author Website   : https://htmlcodex.com
+
+  =>  About HTML Codex : HTML Codex is one of the top creators and publishers of Free HTML templates, HTML landing pages, HTML email templates and HTML snippets in the world. Read more at ( https://htmlcodex.com/about-us )
+
+  =====================================================================
+  Project structure (refactored for GitHub Pages)
+  =====================================================================
+  The shared header (spinner, topbar, navbar) and footer (footer,
+  back-to-top, JS libraries) live in partial HTML files under /partials
+  and are injected at runtime by /js/includes.js. Each page only keeps
+  its unique <head> and page-specific content.
+
+    partials/spinner.html   - loading spinner
+    partials/topbar.html     - top contact bar
+    partials/navbar.html     - main navbar (active link set via data-active)
+    partials/footer.html     - site footer
+    partials/scripts.html    - back-to-top + JS library <script> tags
+    js/includes.js           - fetches partials and injects them
+
+  Each page marks its active nav link with data-active on the navbar
+  placeholder, e.g. data-active="team". See js/includes.js for the list
+  of valid page ids.
+
+  NOTE: Because partials are loaded with fetch(), the site must be
+  served over HTTP (fetch does not work over file://). To preview locally:
+
+      python3 -m http.server 8000
+
+  Then open http://localhost:8000/ . GitHub Pages serves over HTTPS so
+  the partials load correctly there without any extra setup.
