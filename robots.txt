@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# 404 page has noindex meta tag, no need to block here
+Disallow: /404.html
+
+Sitemap: https://alnarozhny.github.io/builder-site/sitemap.xml

@@ -26,7 +26,10 @@
                 var attr = oldScript.attributes[i];
                 newScript.setAttribute(attr.name, attr.value);
             }
-            newScript.async = false;
+            // async=false preserves document order for scripts that rely on
+            // each other (jQuery before main.js). Scripts that explicitly
+            // opt into async (e.g. GA gtag.js) keep their async behaviour.
+            newScript.async = oldScript.hasAttribute("async");
             newScript.textContent = oldScript.textContent;
             oldScript.parentNode.replaceChild(newScript, oldScript);
         });

@@ -3,10 +3,24 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Arkitektur - Architecture HTML Template</title>
+    <title>Book an Appointment — Start Your Project | Arkitektur</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta name="description" content="Schedule an appointment with Arkitektur to start your dream architecture project. Book a consultation with our expert team today.">
+    <link rel="canonical" href="https://alnarozhny.github.io/builder-site/appointment.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Book an Appointment — Start Your Project | Arkitektur">
+    <meta property="og:description" content="Schedule an appointment with Arkitektur to start your dream architecture project. Book a consultation with our expert team today.">
+    <meta property="og:url" content="https://alnarozhny.github.io/builder-site/appointment.html">
+    <meta property="og:image" content="https://alnarozhny.github.io/builder-site/img/about-1.jpg">
+    <meta property="og:site_name" content="Arkitektur">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Book an Appointment — Start Your Project | Arkitektur">
+    <meta name="twitter:description" content="Schedule an appointment with Arkitektur to start your dream architecture project. Book a consultation with our expert team today.">
+    <meta name="twitter:image" content="https://alnarozhny.github.io/builder-site/img/about-1.jpg">
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -63,7 +77,7 @@
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                     <h4 class="section-title">Appointment</h4>
-                    <h1 class="display-5 mb-4">Make An Appointment To Start Your Dream Project</h1>
+                    <h2 class="display-5 mb-4">Make An Appointment To Start Your Dream Project</h2>
                     <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
                     <div class="row g-4">
                         <div class="col-12">
@@ -91,43 +105,56 @@
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <form data-form-endpoint="WORKER_URL_PLACEHOLDER" data-form-type="Appointment">
                     <div class="row g-3">
                         <div class="col-12 col-sm-6">
-                            <input type="text" class="form-control" placeholder="Your Name" style="height: 55px;">
+                            <input type="text" class="form-control" name="name" placeholder="Your Name" style="height: 55px;" required>
                         </div>
                         <div class="col-12 col-sm-6">
-                            <input type="email" class="form-control" placeholder="Your Email" style="height: 55px;">
+                            <input type="email" class="form-control" name="email" placeholder="Your Email" style="height: 55px;" required>
                         </div>
                         <div class="col-12 col-sm-6">
-                            <input type="text" class="form-control" placeholder="Your Mobile" style="height: 55px;">
+                            <input type="text" class="form-control" name="phone" placeholder="Your Mobile" style="height: 55px;">
                         </div>
                         <div class="col-12 col-sm-6">
-                            <select class="form-select" style="height: 55px;">
+                            <select class="form-select" name="service" style="height: 55px;">
                                 <option selected>Choose Service</option>
-                                <option value="1">Service 1</option>
-                                <option value="2">Service 2</option>
-                                <option value="3">Service 3</option>
+                                <option value="Architecture">Architecture</option>
+                                <option value="3D Animation">3D Animation</option>
+                                <option value="House Planning">House Planning</option>
+                                <option value="Interior Design">Interior Design</option>
+                                <option value="Renovation">Renovation</option>
+                                <option value="Construction">Construction</option>
                             </select>
                         </div>
                         <div class="col-12 col-sm-6">
                             <div class="date" id="date" data-target-input="nearest">
-                                <input type="text"
+                                <input type="text" name="date"
                                     class="form-control datetimepicker-input"
                                     placeholder="Choose Date" data-target="#date" data-toggle="datetimepicker" style="height: 55px;">
                             </div>
                         </div>
                         <div class="col-12 col-sm-6">
                             <div class="time" id="time" data-target-input="nearest">
-                                <input type="text"
+                                <input type="text" name="time"
                                     class="form-control datetimepicker-input"
                                     placeholder="Choose Date" data-target="#time" data-toggle="datetimepicker" style="height: 55px;">
                             </div>
                         </div>
                         <div class="col-12">
-                            <textarea class="form-control" rows="5" placeholder="Message"></textarea>
+                            <textarea class="form-control" name="message" rows="5" placeholder="Message"></textarea>
+                        </div>
+                        <!-- Honeypot: скрытое поле, люди его не видят, боты заполняют -->
+                        <div style="position:absolute;left:-9999px;" aria-hidden="true">
+                            <label>Website (leave empty)</label>
+                            <input type="text" name="website" tabindex="-1" autocomplete="off">
                         </div>
                         <div class="col-12">
                             <button class="btn btn-primary w-100 py-3" type="submit">Book Appointment</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
                         </div>
                     </div>
                 </div>

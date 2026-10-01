@@ -3,10 +3,24 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Arkitektur - Architecture HTML Template</title>
+    <title>Contact Us — Arkitektur Architecture</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta name="description" content="Get in touch with Arkitektur for your architecture and interior design project. Call +012 345 6789 or send us a message.">
+    <link rel="canonical" href="https://alnarozhny.github.io/builder-site/contact.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Contact Us — Arkitektur Architecture">
+    <meta property="og:description" content="Get in touch with Arkitektur for your architecture and interior design project. Call +012 345 6789 or send us a message.">
+    <meta property="og:url" content="https://alnarozhny.github.io/builder-site/contact.html">
+    <meta property="og:image" content="https://alnarozhny.github.io/builder-site/img/about-2.jpg">
+    <meta property="og:site_name" content="Arkitektur">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Contact Us — Arkitektur Architecture">
+    <meta name="twitter:description" content="Get in touch with Arkitektur for your architecture and interior design project. Call +012 345 6789 or send us a message.">
+    <meta name="twitter:image" content="https://alnarozhny.github.io/builder-site/img/about-2.jpg">
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -62,7 +76,7 @@
         <div class="container">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                 <h4 class="section-title">Contact Us</h4>
-                <h1 class="display-5 mb-4">If You Have Any Query, Please Feel Free Contact Us</h1>
+                <h2 class="display-5 mb-4">If You Have Any Query, Please Feel Free Contact Us</h2>
             </div>
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -97,32 +111,37 @@
                     </div>
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
-                    <form>
+                    <p class="mb-4">Have a question or want to start a project? Fill out the form below and we'll get back to you shortly.</p>
+                    <form data-form-endpoint="WORKER_URL_PLACEHOLDER" data-form-type="Contact Form">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
                                     <label for="name">Your Name</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
                                     <label for="email">Your Email</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                    <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject">
                                     <label for="subject">Subject</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
+                                    <textarea class="form-control" placeholder="Leave a message here" id="message" name="message" style="height: 100px" required></textarea>
                                     <label for="message">Message</label>
                                 </div>
+                            </div>
+                            <!-- Honeypot: скрытое поле, люди его не видят, боты заполняют -->
+                            <div style="position:absolute;left:-9999px;" aria-hidden="true">
+                                <label>Website (leave empty)</label>
+                                <input type="text" name="website" tabindex="-1" autocomplete="off">
                             </div>
                             <div class="col-12">
                                 <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
