@@ -1,0 +1,9 @@
+README.md
+READ-ME.txt
+worker/
+.github/
+.backup/
+Dockerfile
+docker-compose.yml
+package.json
+package-lock.json

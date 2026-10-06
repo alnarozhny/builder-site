@@ -1,0 +1,46 @@
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Arkitektur",
+        "description": "Architecture and interior design services with 25 years of experience. Modern architecture, 3D animation, house planning, renovation and construction.",
+        "url": "{{ site.base_url }}/",
+        "telephone": "+012-345-6789",
+        "email": "info@example.com",
+        "image": "{{ site.base_url }}/img/carousel-1.jpg",
+        "priceRange": "$$",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "123 Street",
+            "addressLocality": "New York",
+            "addressRegion": "NY",
+            "postalCode": "10001",
+            "addressCountry": "US"
+        },
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+        },
+        "sameAs": [
+            "https://www.facebook.com/",
+            "https://www.twitter.com/",
+            "https://www.linkedin.com/",
+            "https://www.instagram.com/"
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Architecture Services",
+            "itemListElement": [
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Architecture" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "3D Animation" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "House Planning" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Interior Design" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Renovation" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Construction" } }
+            ]
+        }
+    }
+    </script>

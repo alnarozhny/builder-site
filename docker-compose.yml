@@ -1,0 +1,13 @@
+services:
+  site:
+    build: .
+    ports:
+      - "8081:8080"
+    volumes:
+      # Монтируем исходники для hot-reload при разработке
+      - ./:/app
+      # Не перезаписываем node_modules из контейнера
+      - /app/node_modules
+    # Для dev: --serve (hot reload)
+    # Для сборки: override command → npx @11ty/eleventy
+    command: npx @11ty/eleventy --serve

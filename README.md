@@ -1,81 +1,115 @@
 # Arkitektur — Architecture Site
 
-Static multi-page website (architecture/interior design template) refactored with
-shared partials to avoid duplicating the header and footer across pages.
+Static multi-page website built with [Eleventy](https://www.11ty.dev/) (static
+site generator). Templates use Nunjucks with shared includes for header, footer,
+and scripts — no duplication, no client-side fetch hacks.
 
 ## Project structure
 
 ```
 .
-├── index.html, about.html, service.html, ...   # страницы (только уникальный контент)
-├── partials/                                    # общие блоки, грузятся через JS
-│   ├── spinner.html                             # спиннер загрузки
-│   ├── topbar.html                              # верхняя панель (контакты)
-│   ├── navbar.html                              # навигация (активный пункт через data-active)
-│   ├── footer.html                              # подвал
-│   └── scripts.html                             # кнопка "наверх" + JS-библиотеки + аналитика
+├── *.njk                          # страницы (frontmatter + контент)
+├── _includes/                     # общие шаблоны
+│   ├── base.njk                   # базовый layout (head, body, includes)
+│   ├── spinner.njk                # спиннер загрузки
+│   ├── topbar.njk                 # верхняя панель
+│   ├── navbar.njk                 # навигация (active через frontmatter)
+│   ├── footer.njk                 # подвал
+│   └── scripts.njk                # JS-библиотеки + аналитика
+├── _data/
+│   └── site.json                  # контакты, соцсети, базовый URL
+├── .eleventy.js                   # конфиг Eleventy
+├── css/  img/  lib/  scss/        # стили, изображения, библиотеки
 ├── js/
-│   ├── includes.js                              # загрузчик партиалов
-│   └── main.js                                  # логика шаблона (карусели, счётчики и т.д.)
-├── css/  img/  lib/  scss/                      # стили, изображения, библиотеки
-└── READ-ME.txt                                  # оригинальное описание шаблона
+│   ├── main.js                    # логика шаблона
+│   └── form-handler.js            # отправка форм → Cloudflare Worker → Telegram
+├── worker/                        # Cloudflare Worker для форм
+├── Dockerfile                     # Docker для локальной разработки
+├── docker-compose.yml             # docker compose up → dev-сервер на :8080
+├── package.json                   # зависимости и скрипты npm
+└── .github/workflows/             # CI: сборка + деплой на GitHub Pages
 ```
 
 ## Как это работает
 
-Каждая HTML-страница содержит только `<head>` и свой уникальный контент.
-Общие блоки (шапка, футер, скрипты) вставлены как пустые `<div>` с атрибутом
-`data-include`:
+Каждая страница — `.njk` файл с frontmatter:
 
-```html
-<div data-include="partials/navbar.html" data-active="team"></div>
+```yaml
+---
+layout: base.njk
+title: "About Us — Arkitektur"
+description: "..."
+active: "about"        # активный пункт навигации
+og_image: "img/about-1.jpg"
+---
+
+{% block content %}
+  ...уникальный контент страницы...
+{% endblock %}
 ```
 
-`js/includes.js` находит все такие `div`, через `fetch()` подгружает соответствующий
-партиал и вставляет его содержимое. Активный пункт навигации задаётся через
-`data-active` (например `team`, `about`, `index`).
-
-Аналитика (Google Analytics 4 и Hotjar) уже подключена в `partials/scripts.html`
-с плейсхолдерами `GA_ID` и `HJ_ID` — замени их на реальные ID.
+`base.njk` собирает `<head>`, шапку, футер и скрипты из `_includes/`.
+Активный пункт меню определяется через `active` в frontmatter.
 
 ## Запуск локально
 
-Партиалы грузятся через `fetch()`, а `fetch()` не работает по протоколу
-`file://` (блокируется браузером из соображений безопасности). Поэтому сайт
-нужно открывать через локальный HTTP-сервер, а не двойным кликом по файлу.
-
-### Вариант 1 — Python (уже установлен почти везде)
+### Вариант 1 — Docker (рекомендуется, не нужен установленный Node.js)
 
 ```bash
-python3 -m http.server 8000
+# Сборка образа и запуск dev-сервера с hot-reload
+docker compose up
+
+# Сайт доступен на http://localhost:8081
+# Остановка: Ctrl+C, затем docker compose down
 ```
 
-Затем открыть в браузере: <http://localhost:8000/>
+### Вариант 2 — Node.js напрямую
 
-### Вариант 2 — Node.js
+Нужен Node.js 18+ (LTS):
 
 ```bash
-npx serve .
-# или
-npx http-server -p 8000
+npm install        # установить зависимости
+npm run dev        # dev-сервер на http://localhost:8081 (hot-reload)
 ```
 
-### Вариант 3 — VS Code
+### Вариант 3 — Разовая сборка без dev-сервера
 
-Установить расширение **Live Server**, правый клик по `index.html` →
-"Open with Live Server".
+```bash
+npm install
+npm run build      # собирает статический HTML в _site/
+```
+
+Результат в `_site/` — чистые HTML-файлы, можно открыть через любой
+HTTP-сервер:
+
+```bash
+cd _site && python3 -m http.server 8000
+```
 
 ## Деплой на GitHub Pages
 
-1. Запушить репозиторий на GitHub.
-2. В настройках репозитория: **Settings → Pages**.
-3. **Source**: Deploy from a branch → **Branch**: `main` / `(root)` → Save.
+Деплой происходит **автоматически** через GitHub Actions при пуше в `main`.
 
-GitHub Pages раздаёт сайт по HTTPS, поэтому `fetch()` для партиалов работает
-без дополнительной настройки. Первый деплой занимает 1–2 минуты.
+1. Запушить изменения в `main`
+2. GitHub Actions соберёт сайт через `npm run build`
+3. Загрузит `_site/` в GitHub Pages
+
+Настройка (один раз): **Settings → Pages → Source → GitHub Actions**.
+
+Сайт: https://alnarozhny.github.io/builder-site/
+
+## Формы → Telegram
+
+Формы (`contact.njk`, `appointment.njk`) отправляются через Cloudflare Worker
+в Telegram-бота. Настройка описана в `worker/README.md`.
+
+## Аналитика
+
+Google Analytics 4 и Hotjar подключены в `_includes/scripts.njk` с
+плейсхолдерами `GA_ID` и `HJ_ID`. Замените на реальные ID.
 
 ## Лицензия
 
 Шаблон от [HTML Codex](https://htmlcodex.com), распространяется через
 [ThemeWagon](https://themewagon.com). Бесплатен при сохранении атрибуции в
-подвале (см. `partials/footer.html`).
+подвале (см. `_includes/footer.njk`).

@@ -1,0 +1,15 @@
+{
+  "name": "Arkitektur",
+  "base_url": "https://alnarozhny.github.io/builder-site",
+  "phone": "+012 345 6789",
+  "phone_link": "+0123456789",
+  "email": "info@example.com",
+  "address": "123 Street, New York, USA",
+  "social": {
+    "facebook": "",
+    "twitter": "",
+    "linkedin": "",
+    "instagram": "",
+    "youtube": ""
+  }
+}
